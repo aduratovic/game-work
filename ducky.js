@@ -8,8 +8,20 @@ window.onload = function () {
   //   2. add a class to the element
   //   3. append the element to the body )
 
+  const goose = document.createElement('div');
+  goose.className = 'duck';
+  document.body.appendChild(goose);
+
+  
+    
+
+
   // 2. Next, use setInterval to toggle the "flap" class on the duck every 250 ms (1/4 second)
   // https://www.w3schools.com/jsref/met_win_setinterval.asp
+  setInterval(function ()  {
+    goose.classList.toggle('flap');
+  }, 250)
+
 
   // 3. Now, let's move the duck using CSS "top" and "left". Create
   // a function `moveDuck` that takes a duck object as an argument and sets the
@@ -17,7 +29,19 @@ window.onload = function () {
   // HINT: Use Math.random() * window.innerWidth    for "left"
   //       And Math.random() * window.innerHeight   for "top"
 
+  const moveDuck = (duck) => {
+    let width = (Math.random() * window.innerWidth) + 'px';
+    let height = (Math.random() * window.innerHeight) + 'px';  
+    duck.style.top = height;
+    duck.style.left = width;
+    
+ };
+
+
   // 4. Try making the duck move to a different location every second (what did we use to do this several lines up??)
+  
+  
+  setInterval(function () { moveDuck(goose)}, 1000);
 
   // 5. Congratulations! Move on to part 2!
 
@@ -27,13 +51,61 @@ window.onload = function () {
   //    a "function" called createDuck() that does everything in 1-4
   //    and "returns" the duck object
 
+        function createDuck () {
+
+          const goose = document.createElement('div');
+          goose.className = 'duck';
+          document.body.appendChild(goose);
+        
+          console.log(goose);
+
+
+
+
+          setInterval(function ()  {
+            goose.classList.toggle('flap');
+          }, 250);
+
+
+
+          const moveDuck = (duck) => {
+            let width = (Math.random() * window.innerWidth) + 'px';
+            let height = (Math.random() * window.innerHeight) + 'px';  
+            duck.style.top = height;
+            duck.style.left = width;
+            
+         };
+
+
+
+         setInterval(function () { moveDuck(goose)}, 1000);
+
+          
+
+        }
+       
+
   // 7. Now, let's create lots of ducks!  Use a "for" loop to create 5 ducks
   //    using our fancy new createDuck() function
+
+  for (let i = 0; i < 5; i++) {
+    createDuck();
+}
 
   // 8. The ducks are overlapping.  Modify createDuck so each time
   //     it creates a duck, it appears in a random location
   // HINT: You may want to create a `randomPosition()` function that you can use
   //       to set the ducks' initial locations and in your `moveDuck()` function;
+
+  function randomPosition () {
+    let width = (Math.random() * window.innerWidth) + 'px';
+    let height = (Math.random() * window.innerHeight) + 'px';  
+    duck.style.top = height;
+    duck.style.left = width;
+    return [height, width];
+
+
+  }
 
   // 9. Keep going! Move onto part 3!
 
@@ -42,12 +114,35 @@ window.onload = function () {
   // 11. BOOM. Attach a "click" handler that adds the "shot" class to
   //     the duck when you click on it!
 
+  let duckey = document.querySelectorAll(".duck");
+    duckey.forEach(boom => {
+      boom.addEventListener('click', function(){
+        boom.classList.toggle('shot');
+       
+
+    
   // 12. After a duck has been clicked on, remove it from the DOM after
   //     a short delay (1 second) Hint Hint...use setTimeout
   //     as for removing the element check out https://dzone.com/articles/removing-element-plain
 
+
+  setTimeout(() => boom.remove(), 1000)
+  checkForWinner()
+})
+})
+
   // 13. Create a new function named checkForWinner() that reads the DOM
   //     to see if there are any ducks left. (How can we check the DOM for more than one element?, and how can we see how many elements we get back) If not, alert "YOU WIN!"
+
+
+  function checkForWinner(){
+    let winner = document.querySelectorAll('.duck');
+    if(winner.length === 0){
+     alert(" YOU WIN!") 
+    }   
+    return checkForWinner;
+ }
+
 
   // 14. BONUS: The ducks are moving pretty erratically, can you think
   //     of a way to adjust the ducks speed based on how far needs to move?
